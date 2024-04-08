@@ -48,6 +48,9 @@
     <string name="choose_data_sim_summary" product="tablet">Which SIM do you want to use for data? The selected SIM may incur network charges as it will be used to set up your tablet.</string>
     <string name="choose_data_sim_summary" product="default">Which SIM do you want to use for data? The selected SIM may incur network charges as it will be used to set up your phone.</string>
 
+    <string name="change_language_dialog_title">Change language?</string>
+    <string name="change_language_dialog_summary">%1$s SIM detected. Would you like to change system language?</string>
+
     <string name="date_time_summary">Set your time zone and adjust current date and time if needed</string>
 
     <string name="backup_data_summary"><b>Back up</b> app data, Wi-Fi passwords, and other settings to Google servers</string>
@@ -91,7 +94,6 @@
     <string name="face_setup_add_face">Add your face</string>
     <string name="biometric_setup_backup_lock_method">Setup a secondary unlock method</string>
     <string name="biometric_setup_screen_lock_setup">Setup screen lock</string>
-    <string name="sim_locale_changed">%1$s SIM detected</string>
 
     <!-- secure lock screen -->
     <string name="settings_lockscreen_setup_title">Select screen lock type</string>

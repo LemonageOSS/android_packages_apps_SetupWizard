@@ -18,6 +18,7 @@
 package org.lineageos.setupwizard;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.telephony.util.LocaleUtils;
@@ -188,6 +188,21 @@ public class LocaleActivity extends BaseSetupWizardActivity {
         mFetchUpdateSimLocaleTask.execute();
     }
 
+    private void showUpdateLocaleDialog(Context context, Locale simLocale) {
+        String message = getString(R.string.change_language_dialog_summary,
+                simLocale.getDisplayName());
+
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.change_language_dialog_title)
+                .setMessage(message)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    onLocaleChanged(simLocale);
+                })
+                .setNegativeButton(R.string.no, null)
+                .create()
+                .show();
+    }
+
     private class FetchUpdateSimLocaleTask extends AsyncTask<Void, Void, Locale> {
         @Override
         protected Locale doInBackground(Void... params) {
@@ -232,11 +247,8 @@ public class LocaleActivity extends BaseSetupWizardActivity {
         protected void onPostExecute(Locale simLocale) {
             if (simLocale != null && !simLocale.equals(mCurrentLocale)) {
                 if (!((SetupWizardApp) getApplication()).ignoreSimLocale() && !isDestroyed()) {
-                    String label = getString(R.string.sim_locale_changed,
-                            simLocale.getDisplayName());
-                    Toast.makeText(LocaleActivity.this, label, Toast.LENGTH_SHORT).show();
-                    onLocaleChanged(simLocale);
                     ((SetupWizardApp) getApplication()).setIgnoreSimLocale(true);
+                    showUpdateLocaleDialog(LocaleActivity.this, simLocale);
                 }
             }
         }
